@@ -1,0 +1,47 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Employees by Name</h1>
+	<div th:if="not ${employees}" class="error">
+		No Employees found containing.
+		<div style="height: 2cm">&nbsp;</div>
+	</div>
+
+	<div th:if="${employees}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Employee Id</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Designation</th>
+					<th>Organization</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="employee : ${employees}">
+					<td><a href="employee.html"
+						th:href="@{|/employees/${employee.id}|}"
+						th:text="|${employee.id}|">Id</a></td>
+					<td th:text="${employee.name}">Name</td>
+					<td th:text="${employee.email}">Email</td>
+					<td th:text="${employee.designation}">Designation</td>
+					<td th:text="${employee.organization}">Organization</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div style="text-align: right">
+		Options: <a th:href="@{/}">Home</a> | <a
+			th:href="@{/employees/}">employee Search</a>
+	</div>
+
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>
